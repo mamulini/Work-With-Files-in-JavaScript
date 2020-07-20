@@ -109,9 +109,9 @@ addHandler(addQuestionBtn, 'click', ev => {
 addHandler(findOne(C, '#create-test-btn'), 'click', () => createTest())
 
 const createTest = () => {
-    const arr = []
+    const obj = {}
 
-    const questions = findAll(Q, '.question-box')
+    const questions = Array.from(findAll(Q, '.question-box'))
 
     const isEmpty = (...args) => {
         args.map(arg => {
@@ -135,18 +135,18 @@ const createTest = () => {
 
         isEmpty(questionText, ...answersText, explanationText)
 
-        arr.push({
+        obj[questions.indexOf(q)] = {
             question: questionText,
             answers: answersText,
             rightAnswer: rightAnswerText,
             explanation: explanationText
-        })
+        }
     })
 
-    console.table(arr)
+    console.table(obj)
 
     const data = new Blob(
-        [JSON.stringify(arr)], {
+        [JSON.stringify(obj)], {
             type: 'application/json'
         }
     )

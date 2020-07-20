@@ -45,34 +45,34 @@
             return data
         }
 
-        getData('./data.json')
+        getData('data.json')
             .then(data => {
                 console.table(data)
-                
+
                 createTest(data)
             })
 
         let name = Date.now()
         const createTest = data => {
-            data.map(item => {
-                console.log(item)
+            for (const item in data) {
+                console.log(data[item])
 
                 const {
                     question,
                     answers,
                     rightAnswer,
                     explanation
-                } = item
+                } = data[item]
 
                 name++
 
                 const questionTemplate = `
                     <hr>
                     <section>
-                        <h3>Question ${data.indexOf(item) + 1}: ${question}</h3>
+                        <h3>Question ${+item + 1}: ${question}</h3>
                         <form>
                             <legend>Answers</legend>
-                            ${answers.reduce((html, item) => html += `<label><input type="radio" name="${name}">${item}</label><br>`, '')}
+                            ${answers.reduce((html, ans) => html += `<label><input type="radio" name="${name}">${ans}</label><br>`, '')}
                         </form>
                         <p class="right-answer">Right answer: ${rightAnswer}</p>
                         <p class="explanation">Explanation: ${explanation}</p>
@@ -80,7 +80,7 @@
                 `
 
                 document.body.insertAdjacentHTML('beforeend', questionTemplate)
-            })
+            }
 
             const forms = document.querySelectorAll('form')
 
@@ -98,8 +98,10 @@
                 const answers = []
 
                 forms.forEach(form => {
-                    const chosenAnswer = form.querySelector('input:checked').parentElement.textContent
-                    const rightAnswer = form.nextElementSibling.textContent.replace('Right answer: ', '')
+                    const chosenAnswer = form.querySelector('input:checked').parentElement
+                        .textContent
+                    const rightAnswer = form.nextElementSibling.textContent.replace(
+                        'Right answer: ', '')
                     answers.push([chosenAnswer, rightAnswer])
                 })
 
@@ -144,7 +146,7 @@
                     <p>Percentage of correct answers: ${percent}</p>
                     <p>${result}</p>
                 `
-                
+
                 document.body.insertAdjacentHTML('beforeend', resultTemplate)
             }
         }
