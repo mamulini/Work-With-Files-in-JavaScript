@@ -1,0 +1,16 @@
+[{
+    "question": "first question",
+    "answers": ["foo", "bar", "baz"],
+    "rightAnswer": "foo",
+    "explanation": "first explanation"
+}, {
+    "question": "second question",
+    "answers": ["foo", "bar", "baz"],
+    "rightAnswer": "bar",
+    "explanation": "second explanation"
+}, {
+    "question": "third question",
+    "answers": ["foo", "bar", "baz"],
+    "rightAnswer": "baz",
+    "explanation": "third explanation"
+}]
